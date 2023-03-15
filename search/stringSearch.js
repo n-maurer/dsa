@@ -20,11 +20,8 @@ function stringSearch2(string, searchWord) {
         word = word.concat(string[j]);
     }
     for (let i = searchWord.length; i < string.length; i++) {
-        if (word === searchWord) {
-            return true;
-        }
-        word = word.substring(1);
-        word = word.concat(string[i]);
+        if (word === searchWord) return true;
+        word = word.substring(1).concat(string[i]);
     }
     return false;
 }
