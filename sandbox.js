@@ -1,27 +1,12 @@
-function domainName(url) {
-    let domain = "";
-    let splitUrl = url.split("");
-    let firstChunkIndexEnd = 0;
-    let secondChunkIndexEnd = 0;
-    let switchToNonAlphaNumeric = false;
-    for (let i in splitUrl) {
-        if (
-            /^[a-z0-9]+$/i.test(splitUrl[i]) === false &&
-            switchToNonAlphaNumeric === false
-        ) {
-            switchToNonAlphaNumeric = true;
-        }
-        if (
-            switchToNonAlphaNumeric === true &&
-            /^[a-z0-9]+$/i.test(splitUrl[i]) === true
-        ) {
-            firstChunkIndexEnd = i;
-            switchToNonAlphaNumeric = false;
-            break;
-        }
+function rotateLeft(d, arr) {
+    let i = 0;
+    while (i < d) {
+        let temp = arr[0];
+        arr.shift();
+        arr.push(temp);
+        i++;
     }
-
-    for (let i = firstChunkIndexEnd + 1; i < splitUrl.length; i++) {
-        console.log(splitUrl[i]);
-    }
+    return arr;
 }
+
+console.log(rotateLeft(2, [1, 2, 3, 4, 5]));
