@@ -105,6 +105,23 @@ class SinglyLinkedList {
             return true;
         }
     }
+
+    remove(index) {
+        if (index < 0 || index > this.length) {
+            return false;
+        } else if (index === this.length) {
+            this.pop();
+        } else if (index === 0) {
+            this.shift();
+        } else {
+            var nodeToRemove = this.get(index);
+            var nextNode = nodeToRemove.next;
+            var prev = this.get(index - 1);
+            prev.next = nextNode;
+            this.length--;
+            return nodeToRemove;
+        }
+    }
 }
 
 var list = new SinglyLinkedList();
@@ -112,5 +129,7 @@ list.push("Hello");
 list.push("World");
 // console.log(list);
 list.insert(1, "There");
+console.log(list);
+list.remove(1);
 console.log(list);
 // console.log(list.push("World"));
