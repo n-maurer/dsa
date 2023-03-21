@@ -87,12 +87,30 @@ class SinglyLinkedList {
         found.val = value;
         return true;
     }
+
+    insert(index, value) {
+        if (index < 0 || index > this.length) {
+            return false;
+        } else if (index === this.length) {
+            this.push(val);
+        } else if (index === 0) {
+            this.unshift(value);
+        } else {
+            var newNode = new Node(value);
+            var prev = this.get(index - 1);
+            var temp = prev.next;
+            prev.next = newNode;
+            newNode.next = temp;
+            this.length++;
+            return true;
+        }
+    }
 }
 
 var list = new SinglyLinkedList();
 list.push("Hello");
 list.push("World");
 // console.log(list);
-console.log(list.set(0, "Hello!"));
+list.insert(1, "There");
 console.log(list);
 // console.log(list.push("World"));
