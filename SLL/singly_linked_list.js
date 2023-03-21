@@ -122,14 +122,24 @@ class SinglyLinkedList {
             return nodeToRemove;
         }
     }
+
+    reverse() {
+        var prev = null;
+        var current = this.head;
+        while (current) {
+            var nextNode = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextNode;
+        }
+        [this.head, this.tail] = [this.tail, this.head];
+        return true;
+    }
 }
 
 var list = new SinglyLinkedList();
-list.push("Hello");
-list.push("World");
-// console.log(list);
-list.insert(1, "There");
+for (let i = 0; i < 10; i++) {
+    list.push(i + 1);
+}
+console.log(list.reverse());
 console.log(list);
-list.remove(1);
-console.log(list);
-// console.log(list.push("World"));
