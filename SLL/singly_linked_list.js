@@ -135,11 +135,21 @@ class SinglyLinkedList {
         [this.head, this.tail] = [this.tail, this.head];
         return true;
     }
+
+    print() {
+        var arr = [];
+        var current = this.head;
+        while (current) {
+            arr.push(current.val);
+            current = current.next;
+        }
+        console.log(arr);
+    }
 }
 
 var list = new SinglyLinkedList();
 for (let i = 0; i < 10; i++) {
     list.push(i + 1);
 }
-console.log(list.reverse());
-console.log(list);
+// console.log(list.reverse());
+list.print();
