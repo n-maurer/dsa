@@ -65,13 +65,14 @@ class DoublyLinkedList {
         } else {
             let currentHead = this.head;
             currentHead.prev = newNode;
+            newNode.next = currentHead;
         }
         this.head = newNode;
         this.length++;
     }
 
     get(index) {
-        if (index >= this.length || index < 0 || !index) return null;
+        if (index >= this.length || index < 0) return null;
         var middle = this.length / 2;
         if (index > this.length / 2) {
             var i = this.length - 1;
@@ -99,11 +100,51 @@ class DoublyLinkedList {
         nodeToSet.val = value;
         return true;
     }
+
+    insert(index, val) {
+        if (index < 0 || index > this.length) return false;
+        if (index === 0) return this.unshift(val);
+        if (index === this.length) return this.push(val);
+        var newNode = new Node(val);
+        var beforeNode = this.get(index - 1);
+        var afterNode = beforeNode.next;
+        beforeNode.next = newNode;
+        newNode.prev = beforeNode;
+        newNode.next = afterNode;
+        afterNode.prev = newNode;
+        this.length++;
+        return true;
+    }
+
+    remove(index) {
+        if (index < 0 || index >= this.length) {
+            return undefined;
+        }
+        if (index === 0) return this.shift();
+        if (index === this.length) return this.pop();
+        var nodeToRemove = this.get(index);
+        var prevNode = nodeToRemove.prev;
+        var nextNode = nodeToRemove.next;
+        nodeToRemove.next = null;
+        nodeToRemove.prev = null;
+        prevNode.next = nextNode;
+        nextNode.prev = prevNode;
+        this.length--;
+        return nodeToRemove;
+    }
+}
+let dll = new DoublyLinkedList();
+var names = ["Harry", "Ron", "Hermoine", "Snape", "Dumbledore"];
+for (let name of names) {
+    dll.push(name);
 }
 
-let dll = new DoublyLinkedList();
-for (let i = 1; i <= 10; i++) {
-    dll.push(i);
-}
-dll.set(9, 100);
+console.log(dll.remove(1));
 console.log(dll);
+
+// let dll = new DoublyLinkedList();
+// for (let i = 1; i <= 10; i++) {
+//     dll.push(i);
+// }
+// dll.insert(9, 10);
+// console.log(dll);
