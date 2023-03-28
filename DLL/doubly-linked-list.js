@@ -14,7 +14,7 @@ class DoublyLinkedList {
     }
 
     push(val) {
-        const newNode = new Node(val);
+        var newNode = new Node(val);
         if (!this.head) {
             this.head = newNode;
             this.tail = newNode;
@@ -40,7 +40,7 @@ class DoublyLinkedList {
             nodeToPop.prev = null;
         }
         this.length--;
-        return true;
+        return nodeToPop;
     }
 
     shift() {
@@ -55,6 +55,49 @@ class DoublyLinkedList {
             nodeToShift.next = null;
         }
         this.length--;
+        return nodeToShift;
+    }
+
+    unshift(val) {
+        var newNode = new Node(val);
+        if (!this.head) {
+            this.tail = newNode;
+        } else {
+            let currentHead = this.head;
+            currentHead.prev = newNode;
+        }
+        this.head = newNode;
+        this.length++;
+    }
+
+    get(index) {
+        if (index >= this.length || index < 0 || !index) return null;
+        var middle = this.length / 2;
+        if (index > this.length / 2) {
+            var i = this.length - 1;
+            var currentNode = this.tail;
+            while (i >= middle) {
+                var previousNode = currentNode.prev;
+                if (i === index) return currentNode;
+                currentNode = previousNode;
+                i--;
+            }
+        } else {
+            var i = 0;
+            var currentNode = this.head;
+            while (i <= middle) {
+                if (i === index) return currentNode;
+                currentNode = currentNode.next;
+                i++;
+            }
+        }
+    }
+
+    set(index, value) {
+        var nodeToSet = this.get(index);
+        if (!nodeToSet) return false;
+        nodeToSet.val = value;
+        return true;
     }
 }
 
@@ -62,6 +105,5 @@ let dll = new DoublyLinkedList();
 for (let i = 1; i <= 10; i++) {
     dll.push(i);
 }
-dll.shift();
-
+dll.set(9, 100);
 console.log(dll);
